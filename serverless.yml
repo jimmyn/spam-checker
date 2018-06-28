@@ -1,0 +1,18 @@
+service: spam-checker
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-west-1
+  stage: ${opt:stage, 'dev'}
+  profile: ${opt:profile, 'default'}
+
+functions:
+  check:
+    handler: handler.check
+    timeout: 30
+    events:
+      - http:
+          path: check
+          method: post
+          cors: true
