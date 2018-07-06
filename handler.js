@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-const emojiStrip = require('emoji-strip');
+const htmlencode = require("htmlencode");
 
 const headers = {
   'Access-Control-Allow-Origin': '*', // Required for CORS support to work
@@ -16,7 +16,7 @@ module.exports.check = (event, context, callback) => {
     '\nFrom: no-reply@email-campaign-manager.com' +
     '\nMIME-Version: 1.0' +
     '\nTo: "MoonMail" <hi@moonmail.io>' +
-    '\nSubject: ' + emojiStrip(input.subject) +
+    '\nSubject: ' + htmlencode.htmlEncode(input.subject) +
     '\nContent-Type: text/plain; charset=utf-8' +
     '\n\n' + input.body;
 
@@ -29,6 +29,7 @@ module.exports.check = (event, context, callback) => {
   request(options, (error, response, body) => {
     console.log(error, response, body);
     if (error) callback(error);
+
     callback(null, {
       headers,
       statusCode: response.statusCode,

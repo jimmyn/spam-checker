@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "emoji-strip": "^1.0.1",
+    "htmlencode": "^0.0.4",
     "request": "^2.87.0"
   }
 }
